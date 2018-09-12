@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="java.util.List"></import>
+        <import type="java.util.Map"></import>
+        <import  type="com.example.databinding.Utils"></import>
+        <variable
+            name="clicklistener"
+            type="android.view.View.OnClickListener"></variable>
+
+        <variable
+            name="user"
+            type="com.example.databinding.UserBean"></variable>
+        <variable name="list" type="List&lt;com.example.databinding.UserBean>"></variable>
+        <variable name="map" type="Map&lt;String,com.example.databinding.UserBean>"></variable>
+    </data>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.example.databinding.MainActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{(user.name??`空`)+`    `+(Utils.getName(list).address)}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{`年龄:`+(user.name??`空`)+`    `+(map[`liub`].address)}"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bt_setdata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{clicklistener}"
+            android:text="setData"/>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+</layout>

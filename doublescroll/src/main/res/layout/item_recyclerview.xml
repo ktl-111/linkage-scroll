@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.doublescroll.MyLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#fff"
+    android:orientation="horizontal">
+    <TextView android:id="@+id/item_title" android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:background="#00000000"
+              android:gravity="center"
+              android:text="test"
+              android:textColor="@color/colorPrimaryDark"/>
+    <android.support.v7.widget.RecyclerView android:id="@+id/item_rv"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="#00000000"
+                                            android:gravity="center"
+                                            android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
+</com.example.doublescroll.MyLinearLayout>
