@@ -23,6 +23,7 @@ public class ScrollManager {
     }
 
     public static boolean isScroll = false;
+
     public static void scroll(RecyclerView recyclerView, int dx, int dy) {
         if (dx == 0) {
             return;
@@ -39,6 +40,13 @@ public class ScrollManager {
             }
         }
         isScroll = false;
+    }
+
+    public static void stopScroll() {
+        for (RecyclerView rv : mRecyclerviewList) {
+            rv.stopScroll();
+            ((LinearLayoutManager) rv.getLayoutManager()).scrollToPositionWithOffset(ScrollManager.position, ScrollManager.left);
+        }
     }
 
     private static void getPositionAndOffset(RecyclerView recyclerView) {

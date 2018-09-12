@@ -40,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        mRv_main.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                ScrollManager.stopScroll();
+            }
+        });
     }
 
     public class WaiData {
