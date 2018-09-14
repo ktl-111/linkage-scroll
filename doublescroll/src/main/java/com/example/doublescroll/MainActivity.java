@@ -1,10 +1,13 @@
 package com.example.doublescroll;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         initEvent();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initEvent() {
         mRv_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -45,6 +49,22 @@ public class MainActivity extends AppCompatActivity {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 ScrollManager.stopScroll();
+            }
+        });
+        mRv_main.setOnTouchListener(new View.OnTouchListener() {
+
+            private float mStartX;
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    mStartX = motionEvent.getX();
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+                    float dx = motionEvent.getX() - mStartX;
+                    ScrollManager.scroll(mRv_main, (int) -dx, 0);
+                    mStartX = motionEvent.getX();
+                }
+                return false;
             }
         });
     }
