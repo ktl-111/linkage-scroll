@@ -60,9 +60,16 @@ public class MainActivity extends AppCompatActivity {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                     mStartX = motionEvent.getX();
                 } else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+                    if (mStartX == 0) {
+                        mStartX = motionEvent.getX();
+                    }
                     float dx = motionEvent.getX() - mStartX;
-                    ScrollManager.scroll(mRv_main, (int) -dx, 0);
-                    mStartX = motionEvent.getX();
+                    if (!ScrollManager.isScroll) {
+                        ScrollManager.scroll(mRv_main, (int) -dx, 0);
+                        mStartX = motionEvent.getX();
+                    }
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+                    mStartX = 0;
                 }
                 return false;
             }

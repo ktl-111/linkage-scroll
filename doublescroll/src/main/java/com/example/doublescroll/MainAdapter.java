@@ -51,17 +51,25 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         //            holder.mRv_content.scrollTo(tag1[0],0);
         ((LinearLayoutManager) holder.mRv_content.getLayoutManager()).scrollToPositionWithOffset(ScrollManager.position, ScrollManager.left);
         ScrollManager.addRecyclerView(holder.mRv_content);
-        holder.mRv_content.clearOnScrollListeners();
-        holder.mRv_content.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                Log.d(recyclerView.toString(), "onScrolled: " + dx + "---" + dy);
-                if (!ScrollManager.isScroll) {
-                    ScrollManager.scroll(recyclerView, dx, dy);
+        Object tag = holder.mRv_content.getTag();
+        RecyclerView.OnScrollListener listener;
+        if (tag != null) {
+            holder.mRv_content.removeOnScrollListener((RecyclerView.OnScrollListener) tag);
+            listener = (RecyclerView.OnScrollListener) tag;
+        } else {
+            listener = new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    Log.d(recyclerView.toString(), "onScrolled: " + dx + "---" + dy);
+                    if (!ScrollManager.isScroll) {
+                        ScrollManager.scroll(recyclerView, dx, dy);
+                    }
                 }
-            }
-        });
+            };
+            holder.mRv_content.setTag(listener);
+        }
+        holder.mRv_content.addOnScrollListener(listener);
         holder.mRv_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
